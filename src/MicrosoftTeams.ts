@@ -250,7 +250,7 @@ namespace microsoftTeams {
         ensureInitialized();
 
         let messageId = sendMessageRequest(parentWindow, "getTabInstances", [tabInstanceParameters]);
-        callbacks[messageId] = callback;
+        callbacks[messageId] = callbackWrapper.bind(this, callback);
     }
 
     /**
@@ -260,7 +260,7 @@ namespace microsoftTeams {
         ensureInitialized();
 
         let messageId = sendMessageRequest(parentWindow, "getMruTabInstances", [tabInstanceParameters]);
-        callbacks[messageId] = callback;
+        callbacks[messageId] = callbackWrapper.bind(this, callback);
     }
 
     /**
@@ -284,11 +284,7 @@ namespace microsoftTeams {
         ensureInitialized();
 
         let messageId = sendMessageRequest(parentWindow, "navigateToTab", [tabInstance]);
-        callbacks[messageId] = (success: boolean) => {
-            if (!success) {
-                throw new Error("Invalid internalTabInstanceId and/or channelId were/was provided");
-            }
-        };
+        callbacks[messageId] = callbackWrapper.bind(this, null);
     }
 
     /**
@@ -955,6 +951,14 @@ namespace microsoftTeams {
          * This url should lead directly to the sub-entity.
          */
         subEntityWebUrl?: string;
+    }
+
+    function callbackWrapper<T>(callback: (result: T) => void, result: T, error: string): void {
+        if (error) {
+            throw new Error(error);
+        } else if (callback) {
+            callback(result);
+        }
     }
 
     function ensureInitialized(...expectedFrameContexts: string[]): void {
