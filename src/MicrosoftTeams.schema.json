@@ -353,7 +353,7 @@
                     },
                     "commands": {
                         "type": "array",
-                        "maxItems": 1,
+                        "maxItems": 5,
                         "items": {
                             "type": "object",
                             "additionalProperties": false,
@@ -362,6 +362,14 @@
                                     "type": "string",
                                     "description": "Id of the command.",
                                     "maxLength": 64
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "description": "Type of the command.",
+                                    "enum": [
+                                        "search",
+                                        "action"
+                                    ]
                                 },
                                 "title": {
                                     "type": "string",
@@ -391,6 +399,18 @@
                                                 "description": "Name of the parameter.",
                                                 "maxLength": 64
                                             },
+                                            "type": {
+                                                "type": "string",
+                                                "description": "Type of the parameter.",
+                                                "enum": [
+                                                    "text",
+                                                    "textarea",
+                                                    "number",
+                                                    "date",
+                                                    "time",
+                                                    "toggle"
+                                                ]
+                                            },
                                             "title": {
                                                 "type": "string",
                                                 "description": "Title of the parameter.",
@@ -400,6 +420,11 @@
                                                 "type": "string",
                                                 "description": "Description of the parameter.",
                                                 "maxLength": 128
+                                            },
+                                            "value": {
+                                                "type": "string",
+                                                "description": "Default value of the parameter",
+                                                "maxLength": 128
                                             }
                                         },
                                         "required": [
@@ -407,12 +432,19 @@
                                             "title"
                                         ]
                                     }
+                                },
+                                "cutomizedInput": {
+                                    "type": "string",
+                                    "description": "Customized input of the command",
+                                    "enum": [
+                                        "adaptivecard",
+                                        "iframe"
+                                    ]
                                 }
                             },
                             "required": [
                                 "id",
-                                "title",
-                                "parameters"
+                                "title"
                             ]
                         }
                     }
