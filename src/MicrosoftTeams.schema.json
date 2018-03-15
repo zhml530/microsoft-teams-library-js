@@ -368,7 +368,7 @@
                                     "description": "Type of the command.",
                                     "maxLength": 32,
                                     "enum": [
-                                        "queery",
+                                        "query",
                                         "create"
                                     ]
                                 },
@@ -442,7 +442,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
-                                            "description": "Customized input of the command",
+                                            "description": "Type of customized way to collect user input",
                                             "maxLength": 32,
                                             "enum": [
                                                 "adaptivecard",
