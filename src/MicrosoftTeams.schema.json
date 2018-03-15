@@ -353,7 +353,7 @@
                     },
                     "commands": {
                         "type": "array",
-                        "maxItems": 5,
+                        "maxItems": 10,
                         "items": {
                             "type": "object",
                             "additionalProperties": false,
@@ -366,9 +366,10 @@
                                 "type": {
                                     "type": "string",
                                     "description": "Type of the command.",
+                                    "maxLength": 32,
                                     "enum": [
-                                        "search",
-                                        "action"
+                                        "queery",
+                                        "create"
                                     ]
                                 },
                                 "title": {
@@ -402,13 +403,15 @@
                                             "type": {
                                                 "type": "string",
                                                 "description": "Type of the parameter.",
+                                                "maxLength": 32,
                                                 "enum": [
                                                     "text",
                                                     "textarea",
                                                     "number",
                                                     "date",
                                                     "time",
-                                                    "toggle"
+                                                    "toggle",
+                                                    "choiceset"
                                                 ]
                                             },
                                             "title": {
@@ -434,11 +437,27 @@
                                     }
                                 },
                                 "cutomizedInput": {
-                                    "type": "string",
-                                    "description": "Customized input of the command",
-                                    "enum": [
-                                        "adaptivecard",
-                                        "iframe"
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Customized input of the command",
+                                            "maxLength": 32,
+                                            "enum": [
+                                                "adaptivecard",
+                                                "webview"
+                                            ]
+                                        },
+                                        "contentUrl": {
+                                            "type": "string",
+                                            "description": "url that we will host in webview",
+                                            "maxLength": 2048,
+                                            "pattern": "^[Hh][Tt][Tt][Pp][Ss]://"
+                                        }
+                                    },
+                                    "required": [
+                                        "type"
                                     ]
                                 }
                             },
