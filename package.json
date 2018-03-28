@@ -1,9 +1,20 @@
 {
-  "name": "msteams-client",
-  "version": "0.0.0",
+  "name": "microsoft-teams-library-js",
+  "version": "0.0.1",
   "description": "",
-  "repository": {},
+  "scripts": {
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OfficeDev/microsoft-teams-library-js"
+  },
+  "author": "Yuri Dogandjiev",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OfficeDev/microsoft-teams-library-js/issues"
+  },
+  "homepage": "https://github.com/OfficeDev/microsoft-teams-library-js/#readme",
   "devDependencies": {
     "adal-node": "^0.1.22",
     "azure-keyvault": "^2.0.1-preview",
@@ -18,6 +29,7 @@
     "jasmine": "2.5.2",
     "json-schema-to-markdown": "1.0.3",
     "karma": "1.3.0",
+    "karma-coverage": "^1.1.1",
     "karma-jasmine": "1.0.2",
     "karma-phantomjs-launcher": "1.0.2",
     "merge2": "1.0.2",
