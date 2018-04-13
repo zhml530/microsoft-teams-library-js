@@ -1,0 +1,123 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'unpublish',
+1 verbose cli   '@microsoft/microsoft-teams-library-js',
+1 verbose cli   '--force' ]
+2 info using npm@3.10.10
+3 info using node@v6.12.3
+4 warn using --force I sure hope you know what you are doing.
+5 silly unpublish args[0] @microsoft/microsoft-teams-library-js
+6 silly unpublish thing Result {
+6 silly unpublish   raw: '@microsoft/microsoft-teams-library-js',
+6 silly unpublish   scope: '@microsoft',
+6 silly unpublish   escapedName: '@microsoft%2fmicrosoft-teams-library-js',
+6 silly unpublish   name: '@microsoft/microsoft-teams-library-js',
+6 silly unpublish   rawSpec: '',
+6 silly unpublish   spec: 'latest',
+6 silly unpublish   type: 'tag' }
+7 verbose getPublishConfig null
+8 silly ls normalized @microsoft\microsoft-teams-library-js
+9 silly gentlyRm C:\Users\saching\AppData\Roaming\npm-cache\@microsoft\microsoft-teams-library-js is being purged
+10 verbose gentlyRm don't care about contents; nuking C:\Users\saching\AppData\Roaming\npm-cache\@microsoft\microsoft-teams-library-js
+11 silly vacuum-fs purging C:\Users\saching\AppData\Roaming\npm-cache\@microsoft\microsoft-teams-library-js
+12 silly vacuum-fs quitting because other entries in C:\Users\saching\AppData\Roaming\npm-cache\@microsoft
+13 silly mapToRegistry name @microsoft/microsoft-teams-library-js
+14 silly mapToRegistry scope (from package name) @microsoft
+15 verbose mapToRegistry no registry URL found in name for scope @microsoft
+16 silly mapToRegistry using default registry
+17 silly mapToRegistry registry https://registry.npmjs.org/
+18 silly mapToRegistry data Result {
+18 silly mapToRegistry   raw: '@microsoft/microsoft-teams-library-js',
+18 silly mapToRegistry   scope: '@microsoft',
+18 silly mapToRegistry   escapedName: '@microsoft%2fmicrosoft-teams-library-js',
+18 silly mapToRegistry   name: '@microsoft/microsoft-teams-library-js',
+18 silly mapToRegistry   rawSpec: '',
+18 silly mapToRegistry   spec: 'latest',
+18 silly mapToRegistry   type: 'tag' }
+19 silly mapToRegistry uri https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js
+20 verbose get GET as part of write; not caching result
+21 verbose request uri https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js?write=true
+22 verbose request no auth needed
+23 info attempt registry request try #1 at 2:23:20 PM
+24 verbose request using bearer token for auth
+25 verbose request id d9224f23e6494a28
+26 http request GET https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js?write=true
+27 http 200 https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js?write=true
+28 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 verbose headers   'content-type': 'application/json',
+28 verbose headers   etag: '"5acfd66f-2fc9"',
+28 verbose headers   'content-encoding': 'gzip',
+28 verbose headers   'cache-control': 'max-age=0',
+28 verbose headers   'transfer-encoding': 'chunked',
+28 verbose headers   'accept-ranges': 'bytes',
+28 verbose headers   date: 'Fri, 13 Apr 2018 21:23:20 GMT',
+28 verbose headers   via: '1.1 varnish',
+28 verbose headers   connection: 'keep-alive',
+28 verbose headers   'x-served-by': 'cache-dfw18629-DFW',
+28 verbose headers   'x-cache': 'MISS',
+28 verbose headers   'x-cache-hits': '0',
+28 verbose headers   'x-timer': 'S1523654600.384322,VS0,VE306',
+28 verbose headers   vary: 'Accept-Encoding' }
+29 silly get cb [ 200,
+29 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 silly get     'content-type': 'application/json',
+29 silly get     etag: '"5acfd66f-2fc9"',
+29 silly get     'content-encoding': 'gzip',
+29 silly get     'cache-control': 'max-age=0',
+29 silly get     'transfer-encoding': 'chunked',
+29 silly get     'accept-ranges': 'bytes',
+29 silly get     date: 'Fri, 13 Apr 2018 21:23:20 GMT',
+29 silly get     via: '1.1 varnish',
+29 silly get     connection: 'keep-alive',
+29 silly get     'x-served-by': 'cache-dfw18629-DFW',
+29 silly get     'x-cache': 'MISS',
+29 silly get     'x-cache-hits': '0',
+29 silly get     'x-timer': 'S1523654600.384322,VS0,VE306',
+29 silly get     vary: 'Accept-Encoding' } ]
+30 verbose get saving @microsoft/microsoft-teams-library-js to C:\Users\saching\AppData\Roaming\npm-cache\registry.npmjs.org\_40microsoft_252fmicrosoft-teams-library-js_3Fwrite_3Dtrue\.cache.json
+31 verbose correctMkdir C:\Users\saching\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+32 info unpublish No version specified, removing all
+33 verbose request uri https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js/-rev/6-58717832f51ef059f10e34a93ec52fa0
+34 verbose request sending authorization for write operation
+35 info attempt registry request try #1 at 2:23:20 PM
+36 verbose request using bearer token for auth
+37 http request DELETE https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js/-rev/6-58717832f51ef059f10e34a93ec52fa0
+38 http 400 https://registry.npmjs.org/@microsoft%2fmicrosoft-teams-library-js/-rev/6-58717832f51ef059f10e34a93ec52fa0
+39 verbose headers { 'content-type': 'application/json',
+39 verbose headers   'cache-control': 'max-age=0',
+39 verbose headers   'content-length': '194',
+39 verbose headers   'accept-ranges': 'bytes',
+39 verbose headers   date: 'Fri, 13 Apr 2018 21:23:21 GMT',
+39 verbose headers   via: '1.1 varnish',
+39 verbose headers   connection: 'keep-alive',
+39 verbose headers   'x-served-by': 'cache-dfw18629-DFW',
+39 verbose headers   'x-cache': 'MISS',
+39 verbose headers   'x-cache-hits': '0',
+39 verbose headers   'x-timer': 'S1523654601.783113,VS0,VE383' }
+40 verbose request invalidating C:\Users\saching\AppData\Roaming\npm-cache\registry.npmjs.org\_40microsoft_252fmicrosoft-teams-library-js on DELETE
+41 verbose stack Error: You can no longer unpublish this version. Please deprecate it instead
+41 verbose stack npm deprecate -f '@microsoft/microsoft-teams-library-js@*' "this package has been deprecated" : @microsoft/microsoft-teams-library-js
+41 verbose stack     at makeError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:302:12)
+41 verbose stack     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:290:14)
+41 verbose stack     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:210:14)
+41 verbose stack     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:187:22)
+41 verbose stack     at emitTwo (events.js:106:13)
+41 verbose stack     at Request.emit (events.js:191:7)
+41 verbose stack     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1048:10)
+41 verbose stack     at emitOne (events.js:96:13)
+41 verbose stack     at Request.emit (events.js:188:7)
+41 verbose stack     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:969:12)
+42 verbose statusCode 400
+43 verbose pkgid @microsoft/microsoft-teams-library-js
+44 verbose cwd E:\github\microsoft-teams-library-js
+45 error Windows_NT 10.0.16299
+46 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "unpublish" "@microsoft/microsoft-teams-library-js" "--force"
+47 error node v6.12.3
+48 error npm  v3.10.10
+49 error code E400
+50 error You can no longer unpublish this version. Please deprecate it instead
+50 error npm deprecate -f '@microsoft/microsoft-teams-library-js@*' "this package has been deprecated" : @microsoft/microsoft-teams-library-js
+51 error If you need help, you may report this error at:
+51 error     <https://github.com/npm/npm/issues>
+52 verbose exit [ 1, true ]
