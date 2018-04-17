@@ -23,7 +23,7 @@ var buildDir = "./build/";
 var distDir = "./dist/";
 var libName = 'microsoftTeams';
 var dtsHeaderTemplate = `
-declare module '@microsoft/microsoft-teams-library-js' {
+declare module '@microsoft/teams-js' {
     export = microsoftTeams;
 }
 `;
