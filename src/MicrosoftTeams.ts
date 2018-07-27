@@ -3,7 +3,10 @@ declare interface String {
 }
 
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function (search: string, pos?: number): boolean {
+  String.prototype.startsWith = function(
+    search: string,
+    pos?: number
+  ): boolean {
     return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
   };
 }
@@ -29,7 +32,7 @@ interface Window {
 namespace microsoftTeams {
   "use strict";
 
-  const version = "1.2";
+  const version = "1.3.0-alpha.2";
 
   const validOrigins = [
     "https://teams.microsoft.com",
@@ -49,7 +52,8 @@ namespace microsoftTeams {
     let urlRegExpPart = "^";
     let urlParts = url.split(".");
     for (let j = 0; j < urlParts.length; j++) {
-      urlRegExpPart += (j > 0 ? "[.]" : "") + urlParts[j].replace("*", "[^\/^.]+");
+      urlRegExpPart +=
+        (j > 0 ? "[.]" : "") + urlParts[j].replace("*", "[^/^.]+");
     }
     urlRegExpPart += "$";
     return urlRegExpPart;
@@ -1120,13 +1124,13 @@ namespace microsoftTeams {
         link.href,
         "_blank",
         "toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=" +
-        top +
-        ", left=" +
-        left +
-        ", width=" +
-        width +
-        ", height=" +
-        height
+          top +
+          ", left=" +
+          left +
+          ", width=" +
+          width +
+          ", height=" +
+          height
       );
       if (childWindow) {
         // Start monitoring the authentication window so that we can detect if it gets closed before the flow completes
@@ -1590,9 +1594,14 @@ namespace microsoftTeams {
     isTeamArchived?: boolean;
 
     /**
-     * The type of the host client. Possible values are : android, ios, web, desktop
+     * The type of the host client. Possible values are: android, ios, web, desktop
      */
     hostClientType?: HostClientTypes;
+
+    /**
+     * SharePoint-specific context
+     */
+    sharePoint?: sharePoint.IPageContext;
   }
 
   export interface DeepLinkParameters {
@@ -1970,6 +1979,163 @@ namespace microsoftTeams {
       ensureInitialized(frameContexts.content);
 
       sendMessageRequest(parentWindow, "tasks.completeTask", [result, appIds]);
+    }
+  }
+
+  /**
+   * Namespace for SharePoint-specific context types
+   */
+  export namespace sharePoint {
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface IPageContext {
+      readonly aadInfo: IAzureActiveDirectoryInfo | undefined;
+      readonly cultureInfo: ICultureInfo;
+      readonly list: ISPList | undefined;
+      readonly listItem: ISPListItem | undefined;
+      readonly site: ISPSite;
+      readonly user: ISPUser;
+      readonly web: ISPWeb;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface IAzureActiveDirectoryInfo {
+      readonly instanceUrl: string;
+      readonly tenantId: string;
+      readonly userId: string;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ICultureInfo {
+      readonly currentCultureName: string;
+      readonly currentUICultureName: string;
+      readonly isRightToLeft: boolean;
+    }
+
+    /**
+     * {@inheritdoc  O365GroupAssociation.type}
+     * @alpha
+     */
+    export enum O365GroupAssociationType {
+      Unknown = 0,
+      Private = 1,
+      Public = 2
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface IO365GroupAssociation {
+      readonly id: string;
+      readonly type: O365GroupAssociationType;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPList {
+      readonly id: string;
+      readonly permissions: ISPPermission;
+      readonly serverRelativeUrl: string;
+      readonly title: string;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPListItem {
+      readonly id: number;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPPermission {
+      readonly value: IODataBasePermission;
+    }
+
+    /**
+     * Data used for creating a SPPermission object.
+     * @alpha
+     */
+    export interface IODataBasePermission {
+      Low: number;
+      High: number;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPSite {
+      readonly absoluteUrl: string;
+      readonly cdnPrefix: string;
+      readonly classification: string;
+      readonly correlationId: string;
+      readonly group: IO365GroupAssociation | undefined;
+      readonly id: string;
+      readonly isNoScriptEnabled: boolean;
+      readonly recycleBinItemCount: number;
+      readonly serverRelativeUrl: string;
+      readonly serverRequestPath: string;
+      readonly sitePagesEnabled: boolean;
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPUser {
+      readonly displayName: string;
+      readonly email: string;
+      readonly firstDayOfWeek: SPDayOfWeek | undefined;
+      readonly isAnonymousGuestUser: boolean;
+      readonly isExternalGuestUser: boolean;
+      readonly loginName: string;
+      readonly preferUserTimeZone: boolean;
+    }
+
+    /**
+     * The enum members represent the seven days of a week.
+     * @alpha
+     */
+    export const enum SPDayOfWeek {
+      Sunday = 0,
+      Monday = 1,
+      Tuesday = 2,
+      Wednesday = 3,
+      Thursday = 4,
+      Friday = 5,
+      Saturday = 6
+    }
+
+    /**
+     * JSON serializable object.
+     * @alpha
+     */
+    export interface ISPWeb {
+      readonly absoluteUrl: string;
+      readonly description: string;
+      readonly id: string;
+      readonly isAppWeb: boolean;
+      readonly language: number;
+      readonly logoUrl: string;
+      readonly permissions: ISPPermission;
+      readonly serverRelativeUrl: string;
+      readonly templateName: string;
+      readonly title: string;
     }
   }
 }
