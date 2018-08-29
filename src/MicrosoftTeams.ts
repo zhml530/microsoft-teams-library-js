@@ -801,12 +801,12 @@ namespace microsoftTeams {
   }
 
   /**
-  * @private
-  * Hide from docs.
-  * ------
-  * download file.
-  * @param file The file to download.
-  */
+   * @private
+   * Hide from docs.
+   * ------
+   * download file.
+   * @param file The file to download.
+   */
   export function downloadFile(
     fileDownloadParameters: FileDownloadParameters
   ): void {
@@ -817,7 +817,7 @@ namespace microsoftTeams {
       fileDownloadParameters.title
     ];
 
-    sendMessageRequest(parentWindow, "openFilePreview", params);
+    sendMessageRequest(parentWindow, "downloadFile", params);
   }
 
   /**
