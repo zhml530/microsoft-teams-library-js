@@ -3,7 +3,7 @@ declare interface String {
 }
 
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function(
+  String.prototype.startsWith = function (
     search: string,
     pos?: number
   ): boolean {
@@ -801,6 +801,26 @@ namespace microsoftTeams {
   }
 
   /**
+  * @private
+  * Hide from docs.
+  * ------
+  * download file.
+  * @param file The file to download.
+  */
+  export function downloadFile(
+    fileDownloadParameters: FileDownloadParameters
+  ): void {
+    ensureInitialized(frameContexts.content);
+
+    const params = [
+      fileDownloadParameters.objectUrl,
+      fileDownloadParameters.title
+    ];
+
+    sendMessageRequest(parentWindow, "openFilePreview", params);
+  }
+
+  /**
    * @private
    * Hide from docs.
    * ------
@@ -1236,13 +1256,13 @@ namespace microsoftTeams {
         link.href,
         "_blank",
         "toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=" +
-          top +
-          ", left=" +
-          left +
-          ", width=" +
-          width +
-          ", height=" +
-          height
+        top +
+        ", left=" +
+        left +
+        ", width=" +
+        width +
+        ", height=" +
+        height
       );
       if (childWindow) {
         // Start monitoring the authentication window so that we can detect if it gets closed before the flow completes
@@ -1796,6 +1816,14 @@ namespace microsoftTeams {
      * This field should be used to restore to a specific state within an entity, such as scrolling to or activating a specific piece of content.
      */
     subEntityId?: string;
+  }
+
+  export interface FileDownloadParameters {
+    /**
+     * A url to the source of the file, used to open the content in the user's default browser
+     */
+    objectUrl: string;
+    title: string;
   }
 
   function ensureInitialized(...expectedFrameContexts: string[]): void {
