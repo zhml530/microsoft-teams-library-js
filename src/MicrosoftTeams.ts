@@ -3,7 +3,7 @@ declare interface String {
 }
 
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function (
+  String.prototype.startsWith = function(
     search: string,
     pos?: number
   ): boolean {
@@ -824,6 +824,26 @@ namespace microsoftTeams {
    * @private
    * Hide from docs.
    * ------
+   * download file.
+   * @param file The file to download.
+   */
+  export function showNotification(
+    showNotificationParameters: ShowNotificationParameters
+  ): void {
+    ensureInitialized(frameContexts.content);
+
+    const params = [
+      showNotificationParameters.message,
+      showNotificationParameters.isDownloadComplete
+    ];
+
+    sendMessageRequest(parentWindow, "showNotification", params);
+  }
+
+  /**
+   * @private
+   * Hide from docs.
+   * ------
    * Upload a custom App manifest directly to both team and personal scopes.
    * This method works just for the first party Apps.
    */
@@ -1256,13 +1276,13 @@ namespace microsoftTeams {
         link.href,
         "_blank",
         "toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=" +
-        top +
-        ", left=" +
-        left +
-        ", width=" +
-        width +
-        ", height=" +
-        height
+          top +
+          ", left=" +
+          left +
+          ", width=" +
+          width +
+          ", height=" +
+          height
       );
       if (childWindow) {
         // Start monitoring the authentication window so that we can detect if it gets closed before the flow completes
@@ -1824,6 +1844,11 @@ namespace microsoftTeams {
      */
     objectUrl: string;
     title: string;
+  }
+
+  export interface ShowNotificationParameters {
+    message: string;
+    isDownloadComplete: boolean;
   }
 
   function ensureInitialized(...expectedFrameContexts: string[]): void {
