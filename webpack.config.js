@@ -31,6 +31,7 @@ module.exports = {
     minimize: true,
     minimizer: [
       new UglifyJsPlugin ({
+        sourceMap: true,
         uglifyOptions: {
           /*
             inlining is broken sometimes where inlined function uses the same variable name as inlining function.

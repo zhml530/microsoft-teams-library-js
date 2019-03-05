@@ -38,7 +38,7 @@ Install either using npm or yarn
 **If you are using any dependency loader** such as [RequireJS](http://requirejs.org/) or [SystemJS](https://github.com/systemjs/systemjs) or module bundler such as [browserify](http://browserify.org/), [webpack](https://webpack.github.io/), you can use `import` syntax to import specific modules. For e.g.
 
 ```typescript
-import * as microsoftTeams from "@microsoft/teams-js";
+import * as microsoftTeams from '@microsoft/teams-js';
 ```
 
 ### As a Script Tag
@@ -47,7 +47,7 @@ Reference the library inside of your `.html` page using:
 
 ```html
 <!-- Microsoft Teams JavaScript API (via CDN) -->
-<script src="https://unpkg.com/@microsoft/teams-js@1.4.0/dist/MicrosoftTeams.min.js" integrity="sha384-ppYGDexoKPaIXigiMY618vWm0Cql+y9KqFpD3lXPz3UpB3baG76hWSjQxfdtOKdN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@microsoft/teams-js@1.4.0/dist/MicrosoftTeams.min.js" integrity="sha384-JSK6o/VL7PO65RzyOG0w+zZVDN9LRQGijoRiTdoxarCwWMRT4fZC+r+wd+4XZYnk" crossorigin="anonymous"></script>
 
 <!-- Microsoft Teams JavaScript API (via npm) -->
 <script src="node_modules/@microsoft/teams-js@1.4.0/dist/MicrosoftTeams.min.js"></script>
