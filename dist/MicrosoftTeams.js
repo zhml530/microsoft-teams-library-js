@@ -123,37 +123,37 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var version = "1.4.0";
+var version = '1.4.0-beta.18';
 var validOrigins = [
-    "https://teams.microsoft.com",
-    "https://teams.microsoft.us",
-    "https://int.teams.microsoft.com",
-    "https://devspaces.skype.com",
-    "https://ssauth.skype.com",
-    "http://dev.local",
-    "http://dev.local:8080",
-    "https://msft.spoppe.com",
-    "https://*.sharepoint.com",
-    "https://*.sharepoint-df.com",
-    "https://*.sharepointonline.com",
-    "https://outlook.office.com",
-    "https://outlook-sdf.office.com"
+    'https://teams.microsoft.com',
+    'https://teams.microsoft.us',
+    'https://int.teams.microsoft.com',
+    'https://devspaces.skype.com',
+    'https://ssauth.skype.com',
+    'http://dev.local',
+    'http://dev.local:8080',
+    'https://msft.spoppe.com',
+    'https://*.sharepoint.com',
+    'https://*.sharepoint-df.com',
+    'https://*.sharepointonline.com',
+    'https://outlook.office.com',
+    'https://outlook-sdf.office.com',
 ];
 // This will return a reg expression a given url
 function generateRegExpFromUrl(url) {
-    var urlRegExpPart = "^";
-    var urlParts = url.split(".");
+    var urlRegExpPart = '^';
+    var urlParts = url.split('.');
     for (var j = 0; j < urlParts.length; j++) {
-        urlRegExpPart += (j > 0 ? "[.]" : "") + urlParts[j].replace("*", "[^/^.]+");
+        urlRegExpPart += (j > 0 ? '[.]' : '') + urlParts[j].replace('*', '[^/^.]+');
     }
-    urlRegExpPart += "$";
+    urlRegExpPart += '$';
     return urlRegExpPart;
 }
 // This will return a reg expression for list of url
 function generateRegExpFromUrls(urls) {
-    var urlRegExp = "";
+    var urlRegExp = '';
     for (var i = 0; i < urls.length; i++) {
-        urlRegExp += (i === 0 ? "" : "|") + generateRegExpFromUrl(urls[i]);
+        urlRegExp += (i === 0 ? '' : '|') + generateRegExpFromUrl(urls[i]);
     }
     return new RegExp(urlRegExp);
 }
@@ -161,11 +161,11 @@ var validOriginRegExp = generateRegExpFromUrls(validOrigins);
 var handlers = {};
 // Ensure these declarations stay in sync with the framework.
 var frameContexts = {
-    settings: "settings",
-    content: "content",
-    authentication: "authentication",
-    remove: "remove",
-    task: "task"
+    settings: 'settings',
+    content: 'content',
+    authentication: 'authentication',
+    remove: 'remove',
+    task: 'task',
 };
 /**
  * Namespace to interact with the menu-specific part of the SDK.
@@ -198,11 +198,11 @@ var menus;
         MenuListType["popOver"] = "popOver";
     })(MenuListType = menus.MenuListType || (menus.MenuListType = {}));
     var navBarMenuItemPressHandler;
-    handlers["navBarMenuItemPress"] = handleNavBarMenuItemPress;
+    handlers['navBarMenuItemPress'] = handleNavBarMenuItemPress;
     var actionMenuItemPressHandler;
-    handlers["actionMenuItemPress"] = handleActionMenuItemPress;
+    handlers['actionMenuItemPress'] = handleActionMenuItemPress;
     var viewConfigItemPressHandler;
-    handlers["setModuleView"] = handleViewConfigItemPress;
+    handlers['setModuleView'] = handleViewConfigItemPress;
     /**
      * Registers list of view configurations and it's handler.
      * Handler is responsible for listening selection of View Configuration.
@@ -212,13 +212,13 @@ var menus;
     function setUpViews(viewConfig, handler) {
         ensureInitialized();
         viewConfigItemPressHandler = handler;
-        sendMessageRequest(parentWindow, "setUpViews", [viewConfig]);
+        sendMessageRequest(parentWindow, 'setUpViews', [viewConfig]);
     }
     menus.setUpViews = setUpViews;
     function handleViewConfigItemPress(id) {
         if (!viewConfigItemPressHandler || !viewConfigItemPressHandler(id)) {
             ensureInitialized();
-            sendMessageRequest(parentWindow, "viewConfigItemPress", [id]);
+            sendMessageRequest(parentWindow, 'viewConfigItemPress', [id]);
         }
     }
     /**
@@ -229,13 +229,13 @@ var menus;
     function setNavBarMenu(items, handler) {
         ensureInitialized();
         navBarMenuItemPressHandler = handler;
-        sendMessageRequest(parentWindow, "setNavBarMenu", [items]);
+        sendMessageRequest(parentWindow, 'setNavBarMenu', [items]);
     }
     menus.setNavBarMenu = setNavBarMenu;
     function handleNavBarMenuItemPress(id) {
         if (!navBarMenuItemPressHandler || !navBarMenuItemPressHandler(id)) {
             ensureInitialized();
-            sendMessageRequest(parentWindow, "handleNavBarMenuItemPress", [id]);
+            sendMessageRequest(parentWindow, 'handleNavBarMenuItemPress', [id]);
         }
     }
     /**
@@ -246,13 +246,13 @@ var menus;
     function showActionMenu(params, handler) {
         ensureInitialized();
         actionMenuItemPressHandler = handler;
-        sendMessageRequest(parentWindow, "showActionMenu", [params]);
+        sendMessageRequest(parentWindow, 'showActionMenu', [params]);
     }
     menus.showActionMenu = showActionMenu;
     function handleActionMenuItemPress(id) {
         if (!actionMenuItemPressHandler || !actionMenuItemPressHandler(id)) {
             ensureInitialized();
-            sendMessageRequest(parentWindow, "handleActionMenuItemPress", [id]);
+            sendMessageRequest(parentWindow, 'handleActionMenuItemPress', [id]);
         }
     }
 })(menus = exports.menus || (exports.menus = {}));
@@ -273,15 +273,15 @@ var frameContext;
 var hostClientType;
 var printCapabilityEnabled = false;
 var themeChangeHandler;
-handlers["themeChange"] = handleThemeChange;
+handlers['themeChange'] = handleThemeChange;
 var fullScreenChangeHandler;
-handlers["fullScreenChange"] = handleFullScreenChange;
+handlers['fullScreenChange'] = handleFullScreenChange;
 var backButtonPressHandler;
-handlers["backButtonPress"] = handleBackButtonPress;
+handlers['backButtonPress'] = handleBackButtonPress;
 var beforeUnloadHandler;
-handlers["beforeUnload"] = handleBeforeUnload;
+handlers['beforeUnload'] = handleBeforeUnload;
 var changeSettingsHandler;
-handlers["changeSettings"] = handleChangeSettings;
+handlers['changeSettings'] = handleChangeSettings;
 /**
  * Initializes the library. This must be called before any other SDK calls
  * but after the frame is loaded successfully.
@@ -310,13 +310,13 @@ function initialize(hostWindow) {
     }
     else {
         // For iFrame scenario, add listener to listen 'message'
-        currentWindow.addEventListener("message", messageListener, false);
+        currentWindow.addEventListener('message', messageListener, false);
     }
     try {
         // Send the initialized message to any origin, because at this point we most likely don't know the origin
         // of the parent window, and this message contains no data that could pose a security risk.
-        parentOrigin = "*";
-        var messageId = sendMessageRequest(parentWindow, "initialize", [version]);
+        parentOrigin = '*';
+        var messageId = sendMessageRequest(parentWindow, 'initialize', [version]);
         callbacks[messageId] = function (context, clientType) {
             frameContext = context;
             hostClientType = clientType;
@@ -340,7 +340,7 @@ function initialize(hostWindow) {
             settings.registerOnRemoveHandler(null);
         }
         if (!isFramelessWindow) {
-            currentWindow.removeEventListener("message", messageListener, false);
+            currentWindow.removeEventListener('message', messageListener, false);
         }
         initializeCalled = false;
         parentWindow = null;
@@ -371,7 +371,7 @@ function enablePrintCapability() {
         printCapabilityEnabled = true;
         ensureInitialized();
         // adding ctrl+P and cmd+P handler
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener('keydown', function (event) {
             if ((event.ctrlKey || event.metaKey) && event.keyCode === 80) {
                 print();
                 event.cancelBubble = true;
@@ -395,7 +395,7 @@ exports.print = print;
  */
 function getContext(callback) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "getContext");
+    var messageId = sendMessageRequest(parentWindow, 'getContext');
     callbacks[messageId] = callback;
 }
 exports.getContext = getContext;
@@ -408,7 +408,7 @@ function registerOnThemeChangeHandler(handler) {
     ensureInitialized();
     themeChangeHandler = handler;
     handler &&
-        sendMessageRequest(parentWindow, "registerHandler", ["themeChange"]);
+        sendMessageRequest(parentWindow, 'registerHandler', ['themeChange']);
 }
 exports.registerOnThemeChangeHandler = registerOnThemeChangeHandler;
 function handleThemeChange(theme) {
@@ -416,7 +416,7 @@ function handleThemeChange(theme) {
         themeChangeHandler(theme);
     }
     if (childWindow) {
-        sendMessageRequest(childWindow, "themeChange", [theme]);
+        sendMessageRequest(childWindow, 'themeChange', [theme]);
     }
 }
 /**
@@ -428,7 +428,7 @@ function registerFullScreenHandler(handler) {
     ensureInitialized();
     fullScreenChangeHandler = handler;
     handler &&
-        sendMessageRequest(parentWindow, "registerHandler", ["fullScreen"]);
+        sendMessageRequest(parentWindow, 'registerHandler', ['fullScreen']);
 }
 exports.registerFullScreenHandler = registerFullScreenHandler;
 function handleFullScreenChange(isFullScreen) {
@@ -447,7 +447,7 @@ function registerBackButtonHandler(handler) {
     ensureInitialized();
     backButtonPressHandler = handler;
     handler &&
-        sendMessageRequest(parentWindow, "registerHandler", ["backButton"]);
+        sendMessageRequest(parentWindow, 'registerHandler', ['backButton']);
 }
 exports.registerBackButtonHandler = registerBackButtonHandler;
 function handleBackButtonPress() {
@@ -461,10 +461,10 @@ function handleBackButtonPress() {
  */
 function navigateBack() {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "navigateBack", []);
+    var messageId = sendMessageRequest(parentWindow, 'navigateBack', []);
     callbacks[messageId] = function (success) {
         if (!success) {
-            throw new Error("Back navigation is not supported in the current client or context.");
+            throw new Error('Back navigation is not supported in the current client or context.');
         }
     };
 }
@@ -478,12 +478,12 @@ function registerBeforeUnloadHandler(handler) {
     ensureInitialized();
     beforeUnloadHandler = handler;
     handler &&
-        sendMessageRequest(parentWindow, "registerHandler", ["beforeUnload"]);
+        sendMessageRequest(parentWindow, 'registerHandler', ['beforeUnload']);
 }
 exports.registerBeforeUnloadHandler = registerBeforeUnloadHandler;
 function handleBeforeUnload() {
     var readyToUnload = function () {
-        sendMessageRequest(parentWindow, "readyToUnload", []);
+        sendMessageRequest(parentWindow, 'readyToUnload', []);
     };
     if (!beforeUnloadHandler || !beforeUnloadHandler(readyToUnload)) {
         readyToUnload();
@@ -496,7 +496,8 @@ function handleBeforeUnload() {
 function registerChangeSettingsHandler(handler) {
     ensureInitialized(frameContexts.content);
     changeSettingsHandler = handler;
-    handler && sendMessageRequest(parentWindow, "registerHandler", ["changeSettings"]);
+    handler &&
+        sendMessageRequest(parentWindow, 'registerHandler', ['changeSettings']);
 }
 exports.registerChangeSettingsHandler = registerChangeSettingsHandler;
 function handleChangeSettings() {
@@ -514,12 +515,12 @@ function handleChangeSettings() {
  */
 function navigateCrossDomain(url) {
     ensureInitialized(frameContexts.content, frameContexts.settings, frameContexts.remove, frameContexts.task);
-    var messageId = sendMessageRequest(parentWindow, "navigateCrossDomain", [
-        url
+    var messageId = sendMessageRequest(parentWindow, 'navigateCrossDomain', [
+        url,
     ]);
     callbacks[messageId] = function (success) {
         if (!success) {
-            throw new Error("Cross-origin navigation is only supported for URLs matching the pattern registered in the manifest.");
+            throw new Error('Cross-origin navigation is only supported for URLs matching the pattern registered in the manifest.');
         }
     };
 }
@@ -532,8 +533,8 @@ exports.navigateCrossDomain = navigateCrossDomain;
  */
 function getTabInstances(callback, tabInstanceParameters) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "getTabInstances", [
-        tabInstanceParameters
+    var messageId = sendMessageRequest(parentWindow, 'getTabInstances', [
+        tabInstanceParameters,
     ]);
     callbacks[messageId] = callback;
 }
@@ -548,8 +549,8 @@ exports.getTabInstances = getTabInstances;
  */
 function getUserJoinedTeams(callback, teamInstanceParameters) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "getUserJoinedTeams", [
-        teamInstanceParameters
+    var messageId = sendMessageRequest(parentWindow, 'getUserJoinedTeams', [
+        teamInstanceParameters,
     ]);
     callbacks[messageId] = callback;
 }
@@ -561,8 +562,8 @@ exports.getUserJoinedTeams = getUserJoinedTeams;
  */
 function getMruTabInstances(callback, tabInstanceParameters) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "getMruTabInstances", [
-        tabInstanceParameters
+    var messageId = sendMessageRequest(parentWindow, 'getMruTabInstances', [
+        tabInstanceParameters,
     ]);
     callbacks[messageId] = callback;
 }
@@ -573,10 +574,10 @@ exports.getMruTabInstances = getMruTabInstances;
  */
 function shareDeepLink(deepLinkParameters) {
     ensureInitialized(frameContexts.content);
-    sendMessageRequest(parentWindow, "shareDeepLink", [
+    sendMessageRequest(parentWindow, 'shareDeepLink', [
         deepLinkParameters.subEntityId,
         deepLinkParameters.subEntityLabel,
-        deepLinkParameters.subEntityWebUrl
+        deepLinkParameters.subEntityWebUrl,
     ]);
 }
 exports.shareDeepLink = shareDeepLink;
@@ -600,9 +601,9 @@ function openFilePreview(filePreviewParameters) {
         filePreviewParameters.webEditUrl,
         filePreviewParameters.baseUrl,
         filePreviewParameters.editFile,
-        filePreviewParameters.subEntityId
+        filePreviewParameters.subEntityId,
     ];
-    sendMessageRequest(parentWindow, "openFilePreview", params);
+    sendMessageRequest(parentWindow, 'openFilePreview', params);
 }
 exports.openFilePreview = openFilePreview;
 /**
@@ -617,9 +618,9 @@ function showNotification(showNotificationParameters) {
     ensureInitialized(frameContexts.content);
     var params = [
         showNotificationParameters.message,
-        showNotificationParameters.notificationType
+        showNotificationParameters.notificationType,
     ];
-    sendMessageRequest(parentWindow, "showNotification", params);
+    sendMessageRequest(parentWindow, 'showNotification', params);
 }
 exports.showNotification = showNotification;
 /**
@@ -631,8 +632,8 @@ exports.showNotification = showNotification;
  */
 function executeDeepLink(deepLink) {
     ensureInitialized(frameContexts.content);
-    var messageId = sendMessageRequest(parentWindow, "executeDeepLink", [
-        deepLink
+    var messageId = sendMessageRequest(parentWindow, 'executeDeepLink', [
+        deepLink,
     ]);
     callbacks[messageId] = function (success, result) {
         if (!success) {
@@ -650,8 +651,8 @@ exports.executeDeepLink = executeDeepLink;
  */
 function uploadCustomApp(manifestBlob) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "uploadCustomApp", [
-        manifestBlob
+    var messageId = sendMessageRequest(parentWindow, 'uploadCustomApp', [
+        manifestBlob,
     ]);
     callbacks[messageId] = function (success, result) {
         if (!success) {
@@ -666,12 +667,12 @@ exports.uploadCustomApp = uploadCustomApp;
  */
 function navigateToTab(tabInstance) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "navigateToTab", [
-        tabInstance
+    var messageId = sendMessageRequest(parentWindow, 'navigateToTab', [
+        tabInstance,
     ]);
     callbacks[messageId] = function (success) {
         if (!success) {
-            throw new Error("Invalid internalTabInstanceId and/or channelId were/was provided");
+            throw new Error('Invalid internalTabInstanceId and/or channelId were/was provided');
         }
     };
 }
@@ -684,8 +685,8 @@ var settings;
 (function (settings) {
     var saveHandler;
     var removeHandler;
-    handlers["settings.save"] = handleSave;
-    handlers["settings.remove"] = handleRemove;
+    handlers['settings.save'] = handleSave;
+    handlers['settings.remove'] = handleRemove;
     /**
      * Sets the validity state for the settings.
      * The initial value is false, so the user cannot save the settings until this is called with true.
@@ -693,8 +694,8 @@ var settings;
      */
     function setValidityState(validityState) {
         ensureInitialized(frameContexts.settings, frameContexts.remove);
-        sendMessageRequest(parentWindow, "settings.setValidityState", [
-            validityState
+        sendMessageRequest(parentWindow, 'settings.setValidityState', [
+            validityState,
         ]);
     }
     settings.setValidityState = setValidityState;
@@ -704,7 +705,7 @@ var settings;
      */
     function getSettings(callback) {
         ensureInitialized(frameContexts.content, frameContexts.settings, frameContexts.remove);
-        var messageId = sendMessageRequest(parentWindow, "settings.getSettings");
+        var messageId = sendMessageRequest(parentWindow, 'settings.getSettings');
         callbacks[messageId] = callback;
     }
     settings.getSettings = getSettings;
@@ -715,8 +716,8 @@ var settings;
      */
     function setSettings(instanceSettings) {
         ensureInitialized(frameContexts.content, frameContexts.settings);
-        var messageId = sendMessageRequest(parentWindow, "settings.setSettings", [
-            instanceSettings
+        var messageId = sendMessageRequest(parentWindow, 'settings.setSettings', [
+            instanceSettings,
         ]);
         callbacks[messageId] = function (success, result) {
             if (!success) {
@@ -735,7 +736,7 @@ var settings;
     function registerOnSaveHandler(handler) {
         ensureInitialized(frameContexts.settings);
         saveHandler = handler;
-        handler && sendMessageRequest(parentWindow, "registerHandler", ["save"]);
+        handler && sendMessageRequest(parentWindow, 'registerHandler', ['save']);
     }
     settings.registerOnSaveHandler = registerOnSaveHandler;
     /**
@@ -748,7 +749,7 @@ var settings;
     function registerOnRemoveHandler(handler) {
         ensureInitialized(frameContexts.remove);
         removeHandler = handler;
-        handler && sendMessageRequest(parentWindow, "registerHandler", ["remove"]);
+        handler && sendMessageRequest(parentWindow, 'registerHandler', ['remove']);
     }
     settings.registerOnRemoveHandler = registerOnRemoveHandler;
     function handleSave(result) {
@@ -772,17 +773,17 @@ var settings;
         }
         SaveEventImpl.prototype.notifySuccess = function () {
             this.ensureNotNotified();
-            sendMessageRequest(parentWindow, "settings.save.success");
+            sendMessageRequest(parentWindow, 'settings.save.success');
             this.notified = true;
         };
         SaveEventImpl.prototype.notifyFailure = function (reason) {
             this.ensureNotNotified();
-            sendMessageRequest(parentWindow, "settings.save.failure", [reason]);
+            sendMessageRequest(parentWindow, 'settings.save.failure', [reason]);
             this.notified = true;
         };
         SaveEventImpl.prototype.ensureNotNotified = function () {
             if (this.notified) {
-                throw new Error("The SaveEvent may only notify success or failure once.");
+                throw new Error('The SaveEvent may only notify success or failure once.');
             }
         };
         return SaveEventImpl;
@@ -807,17 +808,17 @@ var settings;
         }
         RemoveEventImpl.prototype.notifySuccess = function () {
             this.ensureNotNotified();
-            sendMessageRequest(parentWindow, "settings.remove.success");
+            sendMessageRequest(parentWindow, 'settings.remove.success');
             this.notified = true;
         };
         RemoveEventImpl.prototype.notifyFailure = function (reason) {
             this.ensureNotNotified();
-            sendMessageRequest(parentWindow, "settings.remove.failure", [reason]);
+            sendMessageRequest(parentWindow, 'settings.remove.failure', [reason]);
             this.notified = true;
         };
         RemoveEventImpl.prototype.ensureNotNotified = function () {
             if (this.notified) {
-                throw new Error("The removeEvent may only notify success or failure once.");
+                throw new Error('The removeEvent may only notify success or failure once.');
             }
         };
         return RemoveEventImpl;
@@ -831,8 +832,8 @@ var authentication;
 (function (authentication) {
     var authParams;
     var authWindowMonitor;
-    handlers["authentication.authenticate.success"] = handleSuccess;
-    handlers["authentication.authenticate.failure"] = handleFailure;
+    handlers['authentication.authenticate.success'] = handleSuccess;
+    handlers['authentication.authenticate.failure'] = handleFailure;
     /**
      * Registers the authentication handlers
      * @param authenticateParameters A set of values that configure the authentication pop-up.
@@ -853,10 +854,10 @@ var authentication;
             hostClientType === "android" /* android */ ||
             hostClientType === "ios" /* ios */) {
             // Convert any relative URLs into absolute URLs before sending them over to the parent window.
-            var link = document.createElement("a");
+            var link = document.createElement('a');
             link.href = authenticateParams.url;
             // Ask the parent window to open an authentication window with the parameters provided by the caller.
-            var messageId = sendMessageRequest(parentWindow, "authentication.authenticate", [link.href, authenticateParams.width, authenticateParams.height]);
+            var messageId = sendMessageRequest(parentWindow, 'authentication.authenticate', [link.href, authenticateParams.width, authenticateParams.height]);
             callbacks[messageId] = function (success, response) {
                 if (success) {
                     authenticateParams.successCallback(response);
@@ -882,7 +883,7 @@ var authentication;
      */
     function getAuthToken(authTokenRequest) {
         ensureInitialized();
-        var messageId = sendMessageRequest(parentWindow, "authentication.getAuthToken", [authTokenRequest.resources]);
+        var messageId = sendMessageRequest(parentWindow, 'authentication.getAuthToken', [authTokenRequest.resources]);
         callbacks[messageId] = function (success, result) {
             if (success) {
                 authTokenRequest.successCallback(result);
@@ -901,7 +902,7 @@ var authentication;
      */
     function getUser(userRequest) {
         ensureInitialized();
-        var messageId = sendMessageRequest(parentWindow, "authentication.getUser");
+        var messageId = sendMessageRequest(parentWindow, 'authentication.getUser');
         callbacks[messageId] = function (success, result) {
             if (success) {
                 userRequest.successCallback(result);
@@ -937,25 +938,25 @@ var authentication;
         width = Math.min(width, currentWindow.outerWidth - 400);
         height = Math.min(height, currentWindow.outerHeight - 200);
         // Convert any relative URLs into absolute URLs before sending them over to the parent window
-        var link = document.createElement("a");
+        var link = document.createElement('a');
         link.href = authParams.url;
         // We are running in the browser, so we need to center the new window ourselves
-        var left = typeof currentWindow.screenLeft !== "undefined"
+        var left = typeof currentWindow.screenLeft !== 'undefined'
             ? currentWindow.screenLeft
             : currentWindow.screenX;
-        var top = typeof currentWindow.screenTop !== "undefined"
+        var top = typeof currentWindow.screenTop !== 'undefined'
             ? currentWindow.screenTop
             : currentWindow.screenY;
         left += currentWindow.outerWidth / 2 - width / 2;
         top += currentWindow.outerHeight / 2 - height / 2;
         // Open a child window with a desired set of standard browser features
-        childWindow = currentWindow.open(link.href, "_blank", "toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=" +
+        childWindow = currentWindow.open(link.href, '_blank', 'toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=' +
             top +
-            ", left=" +
+            ', left=' +
             left +
-            ", width=" +
+            ', width=' +
             width +
-            ", height=" +
+            ', height=' +
             height);
         if (childWindow) {
             // Start monitoring the authentication window so that we can detect if it gets closed before the flow completes
@@ -963,7 +964,7 @@ var authentication;
         }
         else {
             // If we failed to open the window, fail the authentication flow
-            handleFailure("FailedToOpenWindow");
+            handleFailure('FailedToOpenWindow');
         }
     }
     function stopAuthenticationWindowMonitor() {
@@ -971,8 +972,8 @@ var authentication;
             clearInterval(authWindowMonitor);
             authWindowMonitor = 0;
         }
-        delete handlers["initialize"];
-        delete handlers["navigateCrossDomain"];
+        delete handlers['initialize'];
+        delete handlers['navigateCrossDomain'];
     }
     function startAuthenticationWindowMonitor() {
         // Stop the previous window monitor if one is running
@@ -984,13 +985,13 @@ var authentication;
         //   with us
         authWindowMonitor = currentWindow.setInterval(function () {
             if (!childWindow || childWindow.closed) {
-                handleFailure("CancelledByUser");
+                handleFailure('CancelledByUser');
             }
             else {
                 var savedChildOrigin = childOrigin;
                 try {
-                    childOrigin = "*";
-                    sendMessageRequest(childWindow, "ping");
+                    childOrigin = '*';
+                    sendMessageRequest(childWindow, 'ping');
                 }
                 finally {
                     childOrigin = savedChildOrigin;
@@ -998,14 +999,14 @@ var authentication;
             }
         }, 100);
         // Set up an initialize-message handler that gives the authentication window its frame context
-        handlers["initialize"] = function () {
+        handlers['initialize'] = function () {
             return [frameContexts.authentication, hostClientType];
         };
         // Set up a navigateCrossDomain message handler that blocks cross-domain re-navigation attempts
         // in the authentication window. We could at some point choose to implement this method via a call to
         // authenticationWindow.location.href = url; however, we would first need to figure out how to
         // validate the URL against the tab's list of valid domains.
-        handlers["navigateCrossDomain"] = function (url) {
+        handlers['navigateCrossDomain'] = function (url) {
             return false;
         };
     }
@@ -1017,10 +1018,10 @@ var authentication;
      * @param callbackUrl Specifies the url to redirect back to if the client is Win32 Outlook.
      */
     function notifySuccess(result, callbackUrl) {
-        redirectIfWin32Outlook(callbackUrl, "result", result);
+        redirectIfWin32Outlook(callbackUrl, 'result', result);
         ensureInitialized(frameContexts.authentication);
-        sendMessageRequest(parentWindow, "authentication.authenticate.success", [
-            result
+        sendMessageRequest(parentWindow, 'authentication.authenticate.success', [
+            result,
         ]);
         // Wait for the message to be sent before closing the window
         waitForMessageQueue(parentWindow, function () {
@@ -1036,10 +1037,10 @@ var authentication;
      * @param callbackUrl Specifies the url to redirect back to if the client is Win32 Outlook.
      */
     function notifyFailure(reason, callbackUrl) {
-        redirectIfWin32Outlook(callbackUrl, "reason", reason);
+        redirectIfWin32Outlook(callbackUrl, 'reason', reason);
         ensureInitialized(frameContexts.authentication);
-        sendMessageRequest(parentWindow, "authentication.authenticate.failure", [
-            reason
+        sendMessageRequest(parentWindow, 'authentication.authenticate.failure', [
+            reason,
         ]);
         // Wait for the message to be sent before closing the window
         waitForMessageQueue(parentWindow, function () {
@@ -1077,23 +1078,23 @@ var authentication;
      */
     function redirectIfWin32Outlook(callbackUrl, key, value) {
         if (callbackUrl) {
-            var link = document.createElement("a");
+            var link = document.createElement('a');
             link.href = decodeURIComponent(callbackUrl);
             if (link.host &&
                 link.host !== window.location.host &&
-                link.host === "outlook.office.com" &&
-                link.search.indexOf("client_type=Win32_Outlook") > -1) {
-                if (key && key === "result") {
+                link.host === 'outlook.office.com' &&
+                link.search.indexOf('client_type=Win32_Outlook') > -1) {
+                if (key && key === 'result') {
                     if (value) {
-                        link.href = updateUrlParameter(link.href, "result", value);
+                        link.href = updateUrlParameter(link.href, 'result', value);
                     }
-                    currentWindow.location.assign(updateUrlParameter(link.href, "authSuccess", ""));
+                    currentWindow.location.assign(updateUrlParameter(link.href, 'authSuccess', ''));
                 }
-                if (key && key === "reason") {
+                if (key && key === 'reason') {
                     if (value) {
-                        link.href = updateUrlParameter(link.href, "reason", value);
+                        link.href = updateUrlParameter(link.href, 'reason', value);
                     }
-                    currentWindow.location.assign(updateUrlParameter(link.href, "authFailure", ""));
+                    currentWindow.location.assign(updateUrlParameter(link.href, 'authFailure', ''));
                 }
             }
         }
@@ -1105,9 +1106,9 @@ var authentication;
      * @param value - the fragment value
      */
     function updateUrlParameter(uri, key, value) {
-        var i = uri.indexOf("#");
-        var hash = i === -1 ? "#" : uri.substr(i);
-        hash = hash + "&" + key + (value !== "" ? "=" + value : "");
+        var i = uri.indexOf('#');
+        var hash = i === -1 ? '#' : uri.substr(i);
+        hash = hash + '&' + key + (value !== '' ? '=' + value : '');
         uri = i === -1 ? uri : uri.substr(0, i);
         return uri + hash;
     }
@@ -1118,7 +1119,7 @@ function ensureInitialized() {
         expectedFrameContexts[_i] = arguments[_i];
     }
     if (!initializeCalled) {
-        throw new Error("The library has not yet been initialized");
+        throw new Error('The library has not yet been initialized');
     }
     if (frameContext &&
         expectedFrameContexts &&
@@ -1137,7 +1138,7 @@ function ensureInitialized() {
 }
 function processMessage(evt) {
     // Process only if we received a valid message
-    if (!evt || !evt.data || typeof evt.data !== "object") {
+    if (!evt || !evt.data || typeof evt.data !== 'object') {
         return;
     }
     // Process only if the message is coming from a different window and a valid origin
@@ -1183,7 +1184,7 @@ function updateRelationships(messageSource, messageOrigin) {
     flushMessageQueue(childWindow);
 }
 function handleParentMessage(evt) {
-    if ("id" in evt.data) {
+    if ('id' in evt.data) {
         // Call any associated callbacks
         var message = evt.data;
         var callback = callbacks[message.id];
@@ -1193,7 +1194,7 @@ function handleParentMessage(evt) {
             delete callbacks[message.id];
         }
     }
-    else if ("func" in evt.data) {
+    else if ('func' in evt.data) {
         // Delegate the request to the proper handler
         var message = evt.data;
         var handler = handlers[message.func];
@@ -1204,7 +1205,7 @@ function handleParentMessage(evt) {
     }
 }
 function handleChildMessage(evt) {
-    if ("id" in evt.data && "func" in evt.data) {
+    if ('id' in evt.data && 'func' in evt.data) {
         // Try to delegate the request to the proper handler
         var message_1 = evt.data;
         var handler = handlers[message_1.func];
@@ -1310,14 +1311,14 @@ function createMessageRequest(func, args) {
     return {
         id: nextMessageId++,
         func: func,
-        args: args || []
+        args: args || [],
     };
 }
 // tslint:disable-next-line:no-any
 function createMessageResponse(id, args) {
     return {
         id: id,
-        args: args || []
+        args: args || [],
     };
 }
 /**
@@ -1333,8 +1334,8 @@ var tasks;
      */
     function startTask(taskInfo, submitHandler) {
         ensureInitialized(frameContexts.content);
-        var messageId = sendMessageRequest(parentWindow, "tasks.startTask", [
-            taskInfo
+        var messageId = sendMessageRequest(parentWindow, 'tasks.startTask', [
+            taskInfo,
         ]);
         callbacks[messageId] = submitHandler;
     }
@@ -1347,10 +1348,10 @@ var tasks;
         ensureInitialized(frameContexts.content, frameContexts.task);
         var width = taskInfo.width, height = taskInfo.height, extra = __rest(taskInfo, ["width", "height"]);
         if (!Object.keys(extra).length) {
-            sendMessageRequest(parentWindow, "tasks.updateTask", [taskInfo]);
+            sendMessageRequest(parentWindow, 'tasks.updateTask', [taskInfo]);
         }
         else {
-            throw new Error("updateTask requires a taskInfo argument containing only width and height");
+            throw new Error('updateTask requires a taskInfo argument containing only width and height');
         }
     }
     tasks.updateTask = updateTask;
@@ -1362,9 +1363,9 @@ var tasks;
     function submitTask(result, appIds) {
         ensureInitialized(frameContexts.content, frameContexts.task);
         // Send tasks.completeTask instead of tasks.submitTask message for backward compatibility with Mobile clients
-        sendMessageRequest(parentWindow, "tasks.completeTask", [
+        sendMessageRequest(parentWindow, 'tasks.completeTask', [
             result,
-            Array.isArray(appIds) ? appIds : [appIds]
+            Array.isArray(appIds) ? appIds : [appIds],
         ]);
     }
     tasks.submitTask = submitTask;
@@ -1380,7 +1381,7 @@ var tasks;
  */
 function getChatMembers(callback) {
     ensureInitialized();
-    var messageId = sendMessageRequest(parentWindow, "getChatMembers");
+    var messageId = sendMessageRequest(parentWindow, 'getChatMembers');
     callbacks[messageId] = callback;
 }
 exports.getChatMembers = getChatMembers;

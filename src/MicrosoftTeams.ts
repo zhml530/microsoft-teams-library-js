@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @private
  * Hide from docs
@@ -29,62 +29,62 @@ interface ExtendedWindow extends Window {
   onNativeMessage(evt: MessageEvent): void;
 }
 
-const version = "1.4.0";
+const version = '1.4.0-beta.18';
 
 const validOrigins = [
-  "https://teams.microsoft.com",
-  "https://teams.microsoft.us",
-  "https://int.teams.microsoft.com",
-  "https://devspaces.skype.com",
-  "https://ssauth.skype.com",
-  "http://dev.local", // local development
-  "http://dev.local:8080", // local development
-  "https://msft.spoppe.com",
-  "https://*.sharepoint.com",
-  "https://*.sharepoint-df.com",
-  "https://*.sharepointonline.com",
-  "https://outlook.office.com",
-  "https://outlook-sdf.office.com"
+  'https://teams.microsoft.com',
+  'https://teams.microsoft.us',
+  'https://int.teams.microsoft.com',
+  'https://devspaces.skype.com',
+  'https://ssauth.skype.com',
+  'http://dev.local', // local development
+  'http://dev.local:8080', // local development
+  'https://msft.spoppe.com',
+  'https://*.sharepoint.com',
+  'https://*.sharepoint-df.com',
+  'https://*.sharepointonline.com',
+  'https://outlook.office.com',
+  'https://outlook-sdf.office.com',
 ];
 
 // This will return a reg expression a given url
 function generateRegExpFromUrl(url: string): string {
-  let urlRegExpPart = "^";
-  const urlParts = url.split(".");
+  let urlRegExpPart = '^';
+  const urlParts = url.split('.');
   for (let j = 0; j < urlParts.length; j++) {
-    urlRegExpPart += (j > 0 ? "[.]" : "") + urlParts[j].replace("*", "[^/^.]+");
+    urlRegExpPart += (j > 0 ? '[.]' : '') + urlParts[j].replace('*', '[^/^.]+');
   }
-  urlRegExpPart += "$";
+  urlRegExpPart += '$';
   return urlRegExpPart;
 }
 
 // This will return a reg expression for list of url
 function generateRegExpFromUrls(urls: string[]): RegExp {
-  let urlRegExp = "";
+  let urlRegExp = '';
   for (let i = 0; i < urls.length; i++) {
-    urlRegExp += (i === 0 ? "" : "|") + generateRegExpFromUrl(urls[i]);
+    urlRegExp += (i === 0 ? '' : '|') + generateRegExpFromUrl(urls[i]);
   }
   return new RegExp(urlRegExp);
 }
 
 const validOriginRegExp = generateRegExpFromUrls(validOrigins);
 
-const handlers: { [func: string]: Function } = {};
+const handlers: {[func: string]: Function} = {};
 
 // Ensure these declarations stay in sync with the framework.
 const frameContexts = {
-  settings: "settings",
-  content: "content",
-  authentication: "authentication",
-  remove: "remove",
-  task: "task"
+  settings: 'settings',
+  content: 'content',
+  authentication: 'authentication',
+  remove: 'remove',
+  task: 'task',
 };
 
 export const enum HostClientType {
-  desktop = "desktop",
-  web = "web",
-  android = "android",
-  ios = "ios"
+  desktop = 'desktop',
+  web = 'web',
+  android = 'android',
+  ios = 'ios',
 }
 
 interface MessageRequest {
@@ -190,18 +190,18 @@ export namespace menus {
    * Represents information about type of list to display in Navigation Bar Menu.
    */
   export enum MenuListType {
-    dropDown = "dropDown",
-    popOver = "popOver"
+    dropDown = 'dropDown',
+    popOver = 'popOver',
   }
 
   let navBarMenuItemPressHandler: (id: string) => boolean;
-  handlers["navBarMenuItemPress"] = handleNavBarMenuItemPress;
+  handlers['navBarMenuItemPress'] = handleNavBarMenuItemPress;
 
   let actionMenuItemPressHandler: (id: string) => boolean;
-  handlers["actionMenuItemPress"] = handleActionMenuItemPress;
+  handlers['actionMenuItemPress'] = handleActionMenuItemPress;
 
   let viewConfigItemPressHandler: (id: string) => boolean;
-  handlers["setModuleView"] = handleViewConfigItemPress;
+  handlers['setModuleView'] = handleViewConfigItemPress;
 
   /**
    * Registers list of view configurations and it's handler.
@@ -215,13 +215,13 @@ export namespace menus {
   ): void {
     ensureInitialized();
     viewConfigItemPressHandler = handler;
-    sendMessageRequest(parentWindow, "setUpViews", [viewConfig]);
+    sendMessageRequest(parentWindow, 'setUpViews', [viewConfig]);
   }
 
   function handleViewConfigItemPress(id: string): void {
     if (!viewConfigItemPressHandler || !viewConfigItemPressHandler(id)) {
       ensureInitialized();
-      sendMessageRequest(parentWindow, "viewConfigItemPress", [id]);
+      sendMessageRequest(parentWindow, 'viewConfigItemPress', [id]);
     }
   }
 
@@ -237,13 +237,13 @@ export namespace menus {
     ensureInitialized();
 
     navBarMenuItemPressHandler = handler;
-    sendMessageRequest(parentWindow, "setNavBarMenu", [items]);
+    sendMessageRequest(parentWindow, 'setNavBarMenu', [items]);
   }
 
   function handleNavBarMenuItemPress(id: string): void {
     if (!navBarMenuItemPressHandler || !navBarMenuItemPressHandler(id)) {
       ensureInitialized();
-      sendMessageRequest(parentWindow, "handleNavBarMenuItemPress", [id]);
+      sendMessageRequest(parentWindow, 'handleNavBarMenuItemPress', [id]);
     }
   }
 
@@ -271,13 +271,13 @@ export namespace menus {
     ensureInitialized();
 
     actionMenuItemPressHandler = handler;
-    sendMessageRequest(parentWindow, "showActionMenu", [params]);
+    sendMessageRequest(parentWindow, 'showActionMenu', [params]);
   }
 
   function handleActionMenuItemPress(id: string): void {
     if (!actionMenuItemPressHandler || !actionMenuItemPressHandler(id)) {
       ensureInitialized();
-      sendMessageRequest(parentWindow, "handleActionMenuItemPress", [id]);
+      sendMessageRequest(parentWindow, 'handleActionMenuItemPress', [id]);
     }
   }
 }
@@ -370,7 +370,7 @@ export const enum TeamType {
   Edu = 1,
   Class = 2,
   Plc = 3,
-  Staff = 4
+  Staff = 4,
 }
 
 /**
@@ -379,7 +379,7 @@ export const enum TeamType {
 export const enum UserTeamRole {
   Admin = 0,
   User = 1,
-  Guest = 2
+  Guest = 2,
 }
 
 /**
@@ -460,9 +460,9 @@ export interface TeamInformation {
 }
 
 export const enum TaskModuleDimension {
-  Large = "large",
-  Medium = "medium",
-  Small = "small"
+  Large = 'large',
+  Medium = 'medium',
+  Small = 'small',
 }
 
 // This indicates whether initialize was called (started).
@@ -478,25 +478,25 @@ let childWindow: Window;
 let childOrigin: string;
 let childMessageQueue: MessageRequest[] = [];
 let nextMessageId = 0;
-let callbacks: { [id: number]: Function } = {};
+let callbacks: {[id: number]: Function} = {};
 let frameContext: string;
 let hostClientType: string;
 let printCapabilityEnabled: boolean = false;
 
 let themeChangeHandler: (theme: string) => void;
-handlers["themeChange"] = handleThemeChange;
+handlers['themeChange'] = handleThemeChange;
 
 let fullScreenChangeHandler: (isFullScreen: boolean) => void;
-handlers["fullScreenChange"] = handleFullScreenChange;
+handlers['fullScreenChange'] = handleFullScreenChange;
 
 let backButtonPressHandler: () => boolean;
-handlers["backButtonPress"] = handleBackButtonPress;
+handlers['backButtonPress'] = handleBackButtonPress;
 
 let beforeUnloadHandler: (readyToUnload: () => void) => boolean;
-handlers["beforeUnload"] = handleBeforeUnload;
+handlers['beforeUnload'] = handleBeforeUnload;
 
 let changeSettingsHandler: () => void;
-handlers["changeSettings"] = handleChangeSettings;
+handlers['changeSettings'] = handleChangeSettings;
 
 /**
  * Initializes the library. This must be called before any other SDK calls
@@ -529,14 +529,14 @@ export function initialize(hostWindow: any = window): void {
     (window as ExtendedWindow).onNativeMessage = handleParentMessage;
   } else {
     // For iFrame scenario, add listener to listen 'message'
-    currentWindow.addEventListener("message", messageListener, false);
+    currentWindow.addEventListener('message', messageListener, false);
   }
 
   try {
     // Send the initialized message to any origin, because at this point we most likely don't know the origin
     // of the parent window, and this message contains no data that could pose a security risk.
-    parentOrigin = "*";
-    const messageId = sendMessageRequest(parentWindow, "initialize", [version]);
+    parentOrigin = '*';
+    const messageId = sendMessageRequest(parentWindow, 'initialize', [version]);
     callbacks[messageId] = (context: string, clientType: string) => {
       frameContext = context;
       hostClientType = clientType;
@@ -563,7 +563,7 @@ export function initialize(hostWindow: any = window): void {
     }
 
     if (!isFramelessWindow) {
-      currentWindow.removeEventListener("message", messageListener, false);
+      currentWindow.removeEventListener('message', messageListener, false);
     }
 
     initializeCalled = false;
@@ -585,7 +585,7 @@ export function initialize(hostWindow: any = window): void {
  * Initializes the library. This must be called before any other SDK calls
  * but after the frame is loaded successfully.
  */
-export function _uninitialize(): void { }
+export function _uninitialize(): void {}
 /**
  * Enable print capability to support printing page using Ctrl+P and cmd+P
  */
@@ -594,7 +594,7 @@ export function enablePrintCapability(): void {
     printCapabilityEnabled = true;
     ensureInitialized();
     // adding ctrl+P and cmd+P handler
-    document.addEventListener("keydown", (event: KeyboardEvent) => {
+    document.addEventListener('keydown', (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.keyCode === 80) {
         print();
         event.cancelBubble = true;
@@ -619,7 +619,7 @@ export function print(): void {
 export function getContext(callback: (context: Context) => void): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "getContext");
+  const messageId = sendMessageRequest(parentWindow, 'getContext');
   callbacks[messageId] = callback;
 }
 
@@ -635,7 +635,7 @@ export function registerOnThemeChangeHandler(
 
   themeChangeHandler = handler;
   handler &&
-    sendMessageRequest(parentWindow, "registerHandler", ["themeChange"]);
+    sendMessageRequest(parentWindow, 'registerHandler', ['themeChange']);
 }
 
 function handleThemeChange(theme: string): void {
@@ -644,7 +644,7 @@ function handleThemeChange(theme: string): void {
   }
 
   if (childWindow) {
-    sendMessageRequest(childWindow, "themeChange", [theme]);
+    sendMessageRequest(childWindow, 'themeChange', [theme]);
   }
 }
 
@@ -660,7 +660,7 @@ export function registerFullScreenHandler(
 
   fullScreenChangeHandler = handler;
   handler &&
-    sendMessageRequest(parentWindow, "registerHandler", ["fullScreen"]);
+    sendMessageRequest(parentWindow, 'registerHandler', ['fullScreen']);
 }
 
 function handleFullScreenChange(isFullScreen: boolean): void {
@@ -681,7 +681,7 @@ export function registerBackButtonHandler(handler: () => boolean): void {
 
   backButtonPressHandler = handler;
   handler &&
-    sendMessageRequest(parentWindow, "registerHandler", ["backButton"]);
+    sendMessageRequest(parentWindow, 'registerHandler', ['backButton']);
 }
 
 function handleBackButtonPress(): void {
@@ -697,11 +697,11 @@ function handleBackButtonPress(): void {
 export function navigateBack(): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "navigateBack", []);
+  const messageId = sendMessageRequest(parentWindow, 'navigateBack', []);
   callbacks[messageId] = (success: boolean) => {
     if (!success) {
       throw new Error(
-        "Back navigation is not supported in the current client or context."
+        'Back navigation is not supported in the current client or context.'
       );
     }
   };
@@ -719,12 +719,12 @@ export function registerBeforeUnloadHandler(
 
   beforeUnloadHandler = handler;
   handler &&
-    sendMessageRequest(parentWindow, "registerHandler", ["beforeUnload"]);
+    sendMessageRequest(parentWindow, 'registerHandler', ['beforeUnload']);
 }
 
 function handleBeforeUnload(): void {
   const readyToUnload = () => {
-    sendMessageRequest(parentWindow, "readyToUnload", []);
+    sendMessageRequest(parentWindow, 'readyToUnload', []);
   };
 
   if (!beforeUnloadHandler || !beforeUnloadHandler(readyToUnload)) {
@@ -736,15 +736,13 @@ function handleBeforeUnload(): void {
  * Registers a handler for when the user reconfigurated tab
  * @param handler The handler to invoke when the user click on Settings.
  */
-export function registerChangeSettingsHandler(
-  handler: () => void
-): void {
+export function registerChangeSettingsHandler(handler: () => void): void {
   ensureInitialized(frameContexts.content);
 
   changeSettingsHandler = handler;
-  handler && sendMessageRequest(parentWindow, "registerHandler", ["changeSettings"]);
+  handler &&
+    sendMessageRequest(parentWindow, 'registerHandler', ['changeSettings']);
 }
-
 
 function handleChangeSettings(): void {
   if (changeSettingsHandler) {
@@ -768,13 +766,13 @@ export function navigateCrossDomain(url: string): void {
     frameContexts.task
   );
 
-  const messageId = sendMessageRequest(parentWindow, "navigateCrossDomain", [
-    url
+  const messageId = sendMessageRequest(parentWindow, 'navigateCrossDomain', [
+    url,
   ]);
   callbacks[messageId] = (success: boolean) => {
     if (!success) {
       throw new Error(
-        "Cross-origin navigation is only supported for URLs matching the pattern registered in the manifest."
+        'Cross-origin navigation is only supported for URLs matching the pattern registered in the manifest.'
       );
     }
   };
@@ -792,8 +790,8 @@ export function getTabInstances(
 ): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "getTabInstances", [
-    tabInstanceParameters
+  const messageId = sendMessageRequest(parentWindow, 'getTabInstances', [
+    tabInstanceParameters,
   ]);
   callbacks[messageId] = callback;
 }
@@ -812,8 +810,8 @@ export function getUserJoinedTeams(
 ): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "getUserJoinedTeams", [
-    teamInstanceParameters
+  const messageId = sendMessageRequest(parentWindow, 'getUserJoinedTeams', [
+    teamInstanceParameters,
   ]);
   callbacks[messageId] = callback;
 }
@@ -829,8 +827,8 @@ export function getMruTabInstances(
 ): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "getMruTabInstances", [
-    tabInstanceParameters
+  const messageId = sendMessageRequest(parentWindow, 'getMruTabInstances', [
+    tabInstanceParameters,
   ]);
   callbacks[messageId] = callback;
 }
@@ -842,10 +840,10 @@ export function getMruTabInstances(
 export function shareDeepLink(deepLinkParameters: DeepLinkParameters): void {
   ensureInitialized(frameContexts.content);
 
-  sendMessageRequest(parentWindow, "shareDeepLink", [
+  sendMessageRequest(parentWindow, 'shareDeepLink', [
     deepLinkParameters.subEntityId,
     deepLinkParameters.subEntityLabel,
-    deepLinkParameters.subEntityWebUrl
+    deepLinkParameters.subEntityWebUrl,
   ]);
 }
 
@@ -872,15 +870,15 @@ export function openFilePreview(
     filePreviewParameters.webEditUrl,
     filePreviewParameters.baseUrl,
     filePreviewParameters.editFile,
-    filePreviewParameters.subEntityId
+    filePreviewParameters.subEntityId,
   ];
 
-  sendMessageRequest(parentWindow, "openFilePreview", params);
+  sendMessageRequest(parentWindow, 'openFilePreview', params);
 }
 
 export const enum NotificationTypes {
-  fileDownloadStart = "fileDownloadStart",
-  fileDownloadComplete = "fileDownloadComplete"
+  fileDownloadStart = 'fileDownloadStart',
+  fileDownloadComplete = 'fileDownloadComplete',
 }
 
 export interface ShowNotificationParameters {
@@ -902,9 +900,9 @@ export function showNotification(
   ensureInitialized(frameContexts.content);
   const params = [
     showNotificationParameters.message,
-    showNotificationParameters.notificationType
+    showNotificationParameters.notificationType,
   ];
-  sendMessageRequest(parentWindow, "showNotification", params);
+  sendMessageRequest(parentWindow, 'showNotification', params);
 }
 
 /**
@@ -916,8 +914,8 @@ export function showNotification(
  */
 export function executeDeepLink(deepLink: string): void {
   ensureInitialized(frameContexts.content);
-  const messageId = sendMessageRequest(parentWindow, "executeDeepLink", [
-    deepLink
+  const messageId = sendMessageRequest(parentWindow, 'executeDeepLink', [
+    deepLink,
   ]);
   callbacks[messageId] = (success: boolean, result: string) => {
     if (!success) {
@@ -936,8 +934,8 @@ export function executeDeepLink(deepLink: string): void {
 export function uploadCustomApp(manifestBlob: Blob): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "uploadCustomApp", [
-    manifestBlob
+  const messageId = sendMessageRequest(parentWindow, 'uploadCustomApp', [
+    manifestBlob,
   ]);
   callbacks[messageId] = (success: boolean, result: string) => {
     if (!success) {
@@ -953,13 +951,13 @@ export function uploadCustomApp(manifestBlob: Blob): void {
 export function navigateToTab(tabInstance: TabInstance): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "navigateToTab", [
-    tabInstance
+  const messageId = sendMessageRequest(parentWindow, 'navigateToTab', [
+    tabInstance,
   ]);
   callbacks[messageId] = (success: boolean) => {
     if (!success) {
       throw new Error(
-        "Invalid internalTabInstanceId and/or channelId were/was provided"
+        'Invalid internalTabInstanceId and/or channelId were/was provided'
       );
     }
   };
@@ -972,8 +970,8 @@ export function navigateToTab(tabInstance: TabInstance): void {
 export namespace settings {
   let saveHandler: (evt: SaveEvent) => void;
   let removeHandler: (evt: RemoveEvent) => void;
-  handlers["settings.save"] = handleSave;
-  handlers["settings.remove"] = handleRemove;
+  handlers['settings.save'] = handleSave;
+  handlers['settings.remove'] = handleRemove;
 
   /**
    * Sets the validity state for the settings.
@@ -983,8 +981,8 @@ export namespace settings {
   export function setValidityState(validityState: boolean): void {
     ensureInitialized(frameContexts.settings, frameContexts.remove);
 
-    sendMessageRequest(parentWindow, "settings.setValidityState", [
-      validityState
+    sendMessageRequest(parentWindow, 'settings.setValidityState', [
+      validityState,
     ]);
   }
 
@@ -1001,7 +999,7 @@ export namespace settings {
       frameContexts.remove
     );
 
-    const messageId = sendMessageRequest(parentWindow, "settings.getSettings");
+    const messageId = sendMessageRequest(parentWindow, 'settings.getSettings');
     callbacks[messageId] = callback;
   }
 
@@ -1013,8 +1011,8 @@ export namespace settings {
   export function setSettings(instanceSettings: Settings): void {
     ensureInitialized(frameContexts.content, frameContexts.settings);
 
-    const messageId = sendMessageRequest(parentWindow, "settings.setSettings", [
-      instanceSettings
+    const messageId = sendMessageRequest(parentWindow, 'settings.setSettings', [
+      instanceSettings,
     ]);
     callbacks[messageId] = (success: boolean, result: string) => {
       if (!success) {
@@ -1036,7 +1034,7 @@ export namespace settings {
     ensureInitialized(frameContexts.settings);
 
     saveHandler = handler;
-    handler && sendMessageRequest(parentWindow, "registerHandler", ["save"]);
+    handler && sendMessageRequest(parentWindow, 'registerHandler', ['save']);
   }
 
   /**
@@ -1052,7 +1050,7 @@ export namespace settings {
     ensureInitialized(frameContexts.remove);
 
     removeHandler = handler;
-    handler && sendMessageRequest(parentWindow, "registerHandler", ["remove"]);
+    handler && sendMessageRequest(parentWindow, 'registerHandler', ['remove']);
   }
 
   function handleSave(result?: SaveParameters): void {
@@ -1146,7 +1144,7 @@ export namespace settings {
     public notifySuccess(): void {
       this.ensureNotNotified();
 
-      sendMessageRequest(parentWindow, "settings.save.success");
+      sendMessageRequest(parentWindow, 'settings.save.success');
 
       this.notified = true;
     }
@@ -1154,7 +1152,7 @@ export namespace settings {
     public notifyFailure(reason?: string): void {
       this.ensureNotNotified();
 
-      sendMessageRequest(parentWindow, "settings.save.failure", [reason]);
+      sendMessageRequest(parentWindow, 'settings.save.failure', [reason]);
 
       this.notified = true;
     }
@@ -1162,7 +1160,7 @@ export namespace settings {
     private ensureNotNotified(): void {
       if (this.notified) {
         throw new Error(
-          "The SaveEvent may only notify success or failure once."
+          'The SaveEvent may only notify success or failure once.'
         );
       }
     }
@@ -1188,7 +1186,7 @@ export namespace settings {
     public notifySuccess(): void {
       this.ensureNotNotified();
 
-      sendMessageRequest(parentWindow, "settings.remove.success");
+      sendMessageRequest(parentWindow, 'settings.remove.success');
 
       this.notified = true;
     }
@@ -1196,7 +1194,7 @@ export namespace settings {
     public notifyFailure(reason?: string): void {
       this.ensureNotNotified();
 
-      sendMessageRequest(parentWindow, "settings.remove.failure", [reason]);
+      sendMessageRequest(parentWindow, 'settings.remove.failure', [reason]);
 
       this.notified = true;
     }
@@ -1204,7 +1202,7 @@ export namespace settings {
     private ensureNotNotified(): void {
       if (this.notified) {
         throw new Error(
-          "The removeEvent may only notify success or failure once."
+          'The removeEvent may only notify success or failure once.'
         );
       }
     }
@@ -1218,8 +1216,8 @@ export namespace settings {
 export namespace authentication {
   let authParams: AuthenticateParameters;
   let authWindowMonitor: number;
-  handlers["authentication.authenticate.success"] = handleSuccess;
-  handlers["authentication.authenticate.failure"] = handleFailure;
+  handlers['authentication.authenticate.success'] = handleSuccess;
+  handlers['authentication.authenticate.failure'] = handleFailure;
 
   /**
    * Registers the authentication handlers
@@ -1254,13 +1252,13 @@ export namespace authentication {
       hostClientType === HostClientType.ios
     ) {
       // Convert any relative URLs into absolute URLs before sending them over to the parent window.
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = authenticateParams.url;
 
       // Ask the parent window to open an authentication window with the parameters provided by the caller.
       const messageId = sendMessageRequest(
         parentWindow,
-        "authentication.authenticate",
+        'authentication.authenticate',
         [link.href, authenticateParams.width, authenticateParams.height]
       );
       callbacks[messageId] = (success: boolean, response: string) => {
@@ -1289,7 +1287,7 @@ export namespace authentication {
 
     const messageId = sendMessageRequest(
       parentWindow,
-      "authentication.getAuthToken",
+      'authentication.getAuthToken',
       [authTokenRequest.resources]
     );
     callbacks[messageId] = (success: boolean, result: string) => {
@@ -1312,7 +1310,7 @@ export namespace authentication {
 
     const messageId = sendMessageRequest(
       parentWindow,
-      "authentication.getUser"
+      'authentication.getUser'
     );
     callbacks[messageId] = (success: boolean, result: UserProfile | string) => {
       if (success) {
@@ -1355,16 +1353,16 @@ export namespace authentication {
     height = Math.min(height, currentWindow.outerHeight - 200);
 
     // Convert any relative URLs into absolute URLs before sending them over to the parent window
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = authParams.url;
 
     // We are running in the browser, so we need to center the new window ourselves
     let left: number =
-      typeof currentWindow.screenLeft !== "undefined"
+      typeof currentWindow.screenLeft !== 'undefined'
         ? currentWindow.screenLeft
         : currentWindow.screenX;
     let top: number =
-      typeof currentWindow.screenTop !== "undefined"
+      typeof currentWindow.screenTop !== 'undefined'
         ? currentWindow.screenTop
         : currentWindow.screenY;
     left += currentWindow.outerWidth / 2 - width / 2;
@@ -1373,22 +1371,22 @@ export namespace authentication {
     // Open a child window with a desired set of standard browser features
     childWindow = currentWindow.open(
       link.href,
-      "_blank",
-      "toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=" +
-      top +
-      ", left=" +
-      left +
-      ", width=" +
-      width +
-      ", height=" +
-      height
+      '_blank',
+      'toolbar=no, location=yes, status=no, menubar=no, scrollbars=yes, top=' +
+        top +
+        ', left=' +
+        left +
+        ', width=' +
+        width +
+        ', height=' +
+        height
     );
     if (childWindow) {
       // Start monitoring the authentication window so that we can detect if it gets closed before the flow completes
       startAuthenticationWindowMonitor();
     } else {
       // If we failed to open the window, fail the authentication flow
-      handleFailure("FailedToOpenWindow");
+      handleFailure('FailedToOpenWindow');
     }
   }
 
@@ -1398,8 +1396,8 @@ export namespace authentication {
       authWindowMonitor = 0;
     }
 
-    delete handlers["initialize"];
-    delete handlers["navigateCrossDomain"];
+    delete handlers['initialize'];
+    delete handlers['navigateCrossDomain'];
   }
 
   function startAuthenticationWindowMonitor(): void {
@@ -1413,12 +1411,12 @@ export namespace authentication {
     //   with us
     authWindowMonitor = currentWindow.setInterval(() => {
       if (!childWindow || childWindow.closed) {
-        handleFailure("CancelledByUser");
+        handleFailure('CancelledByUser');
       } else {
         const savedChildOrigin = childOrigin;
         try {
-          childOrigin = "*";
-          sendMessageRequest(childWindow, "ping");
+          childOrigin = '*';
+          sendMessageRequest(childWindow, 'ping');
         } finally {
           childOrigin = savedChildOrigin;
         }
@@ -1426,7 +1424,7 @@ export namespace authentication {
     }, 100);
 
     // Set up an initialize-message handler that gives the authentication window its frame context
-    handlers["initialize"] = () => {
+    handlers['initialize'] = () => {
       return [frameContexts.authentication, hostClientType];
     };
 
@@ -1434,7 +1432,7 @@ export namespace authentication {
     // in the authentication window. We could at some point choose to implement this method via a call to
     // authenticationWindow.location.href = url; however, we would first need to figure out how to
     // validate the URL against the tab's list of valid domains.
-    handlers["navigateCrossDomain"] = (url: string) => {
+    handlers['navigateCrossDomain'] = (url: string) => {
       return false;
     };
   }
@@ -1447,12 +1445,12 @@ export namespace authentication {
    * @param callbackUrl Specifies the url to redirect back to if the client is Win32 Outlook.
    */
   export function notifySuccess(result?: string, callbackUrl?: string): void {
-    redirectIfWin32Outlook(callbackUrl, "result", result);
+    redirectIfWin32Outlook(callbackUrl, 'result', result);
 
     ensureInitialized(frameContexts.authentication);
 
-    sendMessageRequest(parentWindow, "authentication.authenticate.success", [
-      result
+    sendMessageRequest(parentWindow, 'authentication.authenticate.success', [
+      result,
     ]);
 
     // Wait for the message to be sent before closing the window
@@ -1469,12 +1467,12 @@ export namespace authentication {
    * @param callbackUrl Specifies the url to redirect back to if the client is Win32 Outlook.
    */
   export function notifyFailure(reason?: string, callbackUrl?: string): void {
-    redirectIfWin32Outlook(callbackUrl, "reason", reason);
+    redirectIfWin32Outlook(callbackUrl, 'reason', reason);
 
     ensureInitialized(frameContexts.authentication);
 
-    sendMessageRequest(parentWindow, "authentication.authenticate.failure", [
-      reason
+    sendMessageRequest(parentWindow, 'authentication.authenticate.failure', [
+      reason,
     ]);
 
     // Wait for the message to be sent before closing the window
@@ -1517,28 +1515,28 @@ export namespace authentication {
     value?: string
   ): void {
     if (callbackUrl) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = decodeURIComponent(callbackUrl);
       if (
         link.host &&
         link.host !== window.location.host &&
-        link.host === "outlook.office.com" &&
-        link.search.indexOf("client_type=Win32_Outlook") > -1
+        link.host === 'outlook.office.com' &&
+        link.search.indexOf('client_type=Win32_Outlook') > -1
       ) {
-        if (key && key === "result") {
+        if (key && key === 'result') {
           if (value) {
-            link.href = updateUrlParameter(link.href, "result", value);
+            link.href = updateUrlParameter(link.href, 'result', value);
           }
           currentWindow.location.assign(
-            updateUrlParameter(link.href, "authSuccess", "")
+            updateUrlParameter(link.href, 'authSuccess', '')
           );
         }
-        if (key && key === "reason") {
+        if (key && key === 'reason') {
           if (value) {
-            link.href = updateUrlParameter(link.href, "reason", value);
+            link.href = updateUrlParameter(link.href, 'reason', value);
           }
           currentWindow.location.assign(
-            updateUrlParameter(link.href, "authFailure", "")
+            updateUrlParameter(link.href, 'authFailure', '')
           );
         }
       }
@@ -1552,9 +1550,9 @@ export namespace authentication {
    * @param value - the fragment value
    */
   function updateUrlParameter(uri: string, key: string, value: string): string {
-    const i = uri.indexOf("#");
-    let hash = i === -1 ? "#" : uri.substr(i);
-    hash = hash + "&" + key + (value !== "" ? "=" + value : "");
+    const i = uri.indexOf('#');
+    let hash = i === -1 ? '#' : uri.substr(i);
+    hash = hash + '&' + key + (value !== '' ? '=' + value : '');
     uri = i === -1 ? uri : uri.substr(0, i);
     return uri + hash;
   }
@@ -1950,7 +1948,7 @@ export interface FilePreviewParameters {
 
 function ensureInitialized(...expectedFrameContexts: string[]): void {
   if (!initializeCalled) {
-    throw new Error("The library has not yet been initialized");
+    throw new Error('The library has not yet been initialized');
   }
 
   if (
@@ -1976,7 +1974,7 @@ function ensureInitialized(...expectedFrameContexts: string[]): void {
 
 function processMessage(evt: MessageEvent): void {
   // Process only if we received a valid message
-  if (!evt || !evt.data || typeof evt.data !== "object") {
+  if (!evt || !evt.data || typeof evt.data !== 'object') {
     return;
   }
 
@@ -2032,7 +2030,7 @@ function updateRelationships(
 }
 
 function handleParentMessage(evt: MessageEvent): void {
-  if ("id" in evt.data) {
+  if ('id' in evt.data) {
     // Call any associated callbacks
     const message = evt.data as MessageResponse;
     const callback = callbacks[message.id];
@@ -2042,7 +2040,7 @@ function handleParentMessage(evt: MessageEvent): void {
       // Remove the callback to ensure that the callback is called only once and to free up memory.
       delete callbacks[message.id];
     }
-  } else if ("func" in evt.data) {
+  } else if ('func' in evt.data) {
     // Delegate the request to the proper handler
     const message = evt.data as MessageRequest;
     const handler = handlers[message.func];
@@ -2054,7 +2052,7 @@ function handleParentMessage(evt: MessageEvent): void {
 }
 
 function handleChildMessage(evt: MessageEvent): void {
-  if ("id" in evt.data && "func" in evt.data) {
+  if ('id' in evt.data && 'func' in evt.data) {
     // Try to delegate the request to the proper handler
     const message = evt.data as MessageRequest;
     const handler = handlers[message.func];
@@ -2180,7 +2178,7 @@ function createMessageRequest(func: string, args: any[]): MessageRequest {
   return {
     id: nextMessageId++,
     func: func,
-    args: args || []
+    args: args || [],
   };
 }
 
@@ -2188,7 +2186,7 @@ function createMessageRequest(func: string, args: any[]): MessageRequest {
 function createMessageResponse(id: number, args: any[]): MessageResponse {
   return {
     id: id,
-    args: args || []
+    args: args || [],
   };
 }
 
@@ -2247,8 +2245,8 @@ export namespace tasks {
   ): void {
     ensureInitialized(frameContexts.content);
 
-    const messageId = sendMessageRequest(parentWindow, "tasks.startTask", [
-      taskInfo
+    const messageId = sendMessageRequest(parentWindow, 'tasks.startTask', [
+      taskInfo,
     ]);
     callbacks[messageId] = submitHandler;
   }
@@ -2259,13 +2257,13 @@ export namespace tasks {
    */
   export function updateTask(taskInfo: TaskInfo): void {
     ensureInitialized(frameContexts.content, frameContexts.task);
-    const { width, height, ...extra } = taskInfo;
+    const {width, height, ...extra} = taskInfo;
 
     if (!Object.keys(extra).length) {
-      sendMessageRequest(parentWindow, "tasks.updateTask", [taskInfo]);
+      sendMessageRequest(parentWindow, 'tasks.updateTask', [taskInfo]);
     } else {
       throw new Error(
-        "updateTask requires a taskInfo argument containing only width and height"
+        'updateTask requires a taskInfo argument containing only width and height'
       );
     }
   }
@@ -2282,9 +2280,9 @@ export namespace tasks {
     ensureInitialized(frameContexts.content, frameContexts.task);
 
     // Send tasks.completeTask instead of tasks.submitTask message for backward compatibility with Mobile clients
-    sendMessageRequest(parentWindow, "tasks.completeTask", [
+    sendMessageRequest(parentWindow, 'tasks.completeTask', [
       result,
-      Array.isArray(appIds) ? appIds : [appIds]
+      Array.isArray(appIds) ? appIds : [appIds],
     ]);
   }
 }
@@ -2326,6 +2324,6 @@ export function getChatMembers(
 ): void {
   ensureInitialized();
 
-  const messageId = sendMessageRequest(parentWindow, "getChatMembers");
+  const messageId = sendMessageRequest(parentWindow, 'getChatMembers');
   callbacks[messageId] = callback;
 }
