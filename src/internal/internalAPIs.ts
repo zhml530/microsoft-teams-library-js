@@ -7,6 +7,7 @@ import { MessageResponse, MessageRequest, ExtendedWindow, MessageEvent } from ".
 GlobalVars.handlers["themeChange"] = handleThemeChange;
 GlobalVars.handlers["fullScreenChange"] = handleFullScreenChange;
 GlobalVars.handlers["backButtonPress"] = handleBackButtonPress;
+GlobalVars.handlers["navigateToState"] = handleAppNavigation;
 GlobalVars.handlers["beforeUnload"] = handleBeforeUnload;
 GlobalVars.handlers["changeSettings"] = handleChangeSettings;
 
@@ -29,6 +30,12 @@ function handleFullScreenChange(isFullScreen: boolean): void {
 function handleBackButtonPress(): void {
   if (!GlobalVars.backButtonPressHandler || !GlobalVars.backButtonPressHandler()) {
     navigateBack();
+  }
+}
+
+function handleAppNavigation(state: any): void {
+  if (!GlobalVars.appNavigationHandler || !GlobalVars.appNavigationHandler(state)) {
+    // navigateBack();
   }
 }
 

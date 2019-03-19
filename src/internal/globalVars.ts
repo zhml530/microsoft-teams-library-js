@@ -22,6 +22,7 @@ export class GlobalVars {
   public static themeChangeHandler: (theme: string) => void;
   public static fullScreenChangeHandler: (isFullScreen: boolean) => void;
   public static backButtonPressHandler: () => boolean;
+  public static appNavigationHandler: (state?: any) => boolean;
   public static beforeUnloadHandler: (readyToUnload: () => void) => boolean;
   public static changeSettingsHandler: () => void;
   public static handleParentMessage: any;

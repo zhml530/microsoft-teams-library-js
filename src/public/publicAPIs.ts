@@ -170,12 +170,26 @@ export function registerFullScreenHandler(
  * method to ask the Teams client to handle it instead.
  * @param handler The handler to invoke when the user presses their Team client's back button.
  */
-export function registerBackButtonHandler(handler: () => boolean): void {
+export function registerBackButtonHandler(handler: (state?: any) => boolean): void {
   ensureInitialized();
 
   GlobalVars.backButtonPressHandler = handler;
   handler &&
     sendMessageRequest(GlobalVars.parentWindow, "registerHandler", ["backButton"]);
+}
+
+export function registerAppNavigationHandler(handler: (state?: any) => boolean): void {
+  ensureInitialized();
+
+  GlobalVars.backButtonPressHandler = handler;
+  handler &&
+    sendMessageRequest(GlobalVars.parentWindow, "registerHandler", ["appNavigation"]);
+}
+
+export function addAppNavigationState(state: any): void {
+  ensureInitialized();
+
+  sendMessageRequest(GlobalVars.parentWindow, "addAppNavigationState", [state]);
 }
 
 /**
