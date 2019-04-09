@@ -1,6 +1,6 @@
-import { generateRegExpFromUrls } from "./utils";
+import { generateRegExpFromUrls } from "./utils"
 
-export const version = "1.4.1";
+export const version = "1.5.0-beta.1"
 
 export const validOrigins = [
   "https://teams.microsoft.com",
@@ -18,7 +18,7 @@ export const validOrigins = [
   "https://*.sharepointonline.com",
   "https://outlook.office.com",
   "https://outlook-sdf.office.com"
-];
+]
 
 // Ensure these declarations stay in sync with the framework.
 export const frameContexts = {
@@ -27,6 +27,6 @@ export const frameContexts = {
   authentication: "authentication",
   remove: "remove",
   task: "task"
-};
+}
 
-export const validOriginRegExp = generateRegExpFromUrls(validOrigins);
+export const validOriginRegExp = generateRegExpFromUrls(validOrigins)
