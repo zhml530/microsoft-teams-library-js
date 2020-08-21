@@ -22,6 +22,7 @@ import {
 } from '../../src/public/publicAPIs';
 import { FrameContexts } from '../../src/public/constants';
 import { Utils } from '../utils';
+import { version } from '../../src/internal/constants';
 
 describe('MicrosoftTeams-publicAPIs', () => {
   // Use to send a mock message from the app.
@@ -63,7 +64,7 @@ describe('MicrosoftTeams-publicAPIs', () => {
     expect(initMessage.id).toBe(0);
     expect(initMessage.func).toBe('initialize');
     expect(initMessage.args.length).toEqual(1);
-    expect(initMessage.args[0]).toEqual('1.7.0');
+    expect(initMessage.args[0]).toEqual(version);
   });
 
   it('should allow multiple initialize calls', () => {
@@ -906,7 +907,7 @@ describe('MicrosoftTeams-publicAPIs', () => {
     expect(initMessage.id).toBe(0);
     expect(initMessage.func).toBe('initialize');
     expect(initMessage.args.length).toEqual(1);
-    expect(initMessage.args[0]).toEqual('1.7.0');
+    expect(initMessage.args[0]).toEqual(version);
     let message = utils.findMessageByFunc('setFrameContext');
     expect(message).not.toBeNull();
     expect(message.args.length).toBe(1);
