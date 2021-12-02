@@ -55,11 +55,9 @@ export namespace video {
      */
     format: VideoFrameFormat;
     /**
-     * This flag indicates the video app need camera steram or not.
-     * If video filter wants to synthesize a video frame without camera stream, it can set this flag to false.
-     * Default value is true.
+     * This flag indicates the video app requires audio inference data to synthesize video frames.
      */
-    requireCameraStream?: boolean;
+    requireAudioInference?: boolean;
   }
 
   /**
