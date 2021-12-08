@@ -55,9 +55,9 @@ export namespace video {
      */
     format: VideoFrameFormat;
     /**
-     * This flag indicates the video app requires audio inference data to synthesize video frames.
+     * Audio model data for audio inference, the audio inference data will be attached to video frame.
      */
-    requireAudioInference?: boolean;
+    audioModelData?: ArrayBuffer;
   }
 
   /**
