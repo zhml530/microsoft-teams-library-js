@@ -35,10 +35,6 @@ export namespace video {
      * RGB stride, valid only when video frame format is RGB
      */
     stride?: number;
-    /**
-     * Per frame binary attachment
-     */
-    binaryAttachment?: Uint8Array;
   }
   /**
    * Video frame format enum, currently only support NV12
@@ -54,10 +50,6 @@ export namespace video {
      * video format
      */
     format: VideoFrameFormat;
-    /**
-     * Audio model data for audio inference, the audio inference data will be attached to video frame.
-     */
-    audioModelData?: ArrayBuffer;
   }
 
   /**
@@ -87,6 +79,11 @@ export namespace video {
    *  Video effect change call back function definition
    */
   type VideoEffectCallBack = (effectId: string | undefined) => void;
+
+  /**
+   *  Video effect change call back function definition
+   */
+  type PreviewStatusCallback = (inPreview: boolean) => void;
 
   /**
    * register to read the video frames in Permissions section.
@@ -122,6 +119,14 @@ export namespace video {
   export function registerForVideoEffect(callback: VideoEffectCallBack): void {
     ensureInitialized(FrameContexts.sidePanel);
     registerHandler('video.effectParameterChange', callback);
+  }
+
+  /**
+   * Register the video effect callback, Teams client uses this to notify the video extension the new video effect will by applied.
+   */
+  export function registerForPreviewStatus(callback: PreviewStatusCallback): void {
+    ensureInitialized(FrameContexts.sidePanel);
+    registerHandler('video.previewStatusChanged', callback);
   }
 
   /**
